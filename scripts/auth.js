@@ -24,9 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const hashedInput = await hashPassword(password);
 
+                console.log(`Hashed input: ${hashedInput}`); // Debug
                 if (hashedInput === correctHash) {
+                    console.log("Password corretta! Reindirizzamento..."); // Debug
                     window.location.href = "docs.html";
                 } else {
+                    console.log("Password errata!"); // Debug
                     alert("Password errata! Accesso negato.");
                 }
             });
