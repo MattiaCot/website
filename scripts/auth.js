@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => {
         console.log("Timeout completato, cercando il link protetto"); // Debug
         const protectedLink = document.querySelector("a[href='docs.html']");
+        console.log("Link protetto trovato:", protectedLink); // Debug
+
         const correctHash = "6cf615d5f91afbccaae3960bbacb36d71c65b65dcf2043c3e80c695cfdf1a1d3"; // Hash di "mypassword123"
 
         if (protectedLink) {
@@ -21,12 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("Intercepted click"); // Debug
 
                 let password = prompt("Inserisci la password per accedere ai documenti:");
+                console.log("Password inserita:", password); // Debug
                 if (!password) return;
 
-                console.log("Password inserita: " + password); // Debug
                 const hashedInput = await hashPassword(password);
+                console.log("Hashed input:", hashedInput); // Debug
 
-                console.log("Hashed input: " + hashedInput); // Debug
                 if (hashedInput === correctHash) {
                     console.log("Password corretta! Reindirizzamento..."); // Debug
                     window.location.href = "docs.html";
