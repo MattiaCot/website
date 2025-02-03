@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const correctHash = "6cf615d5f91afbccaae3960bbacb36d71c65b65dcf2043c3e80c695cfdf1a1d3"; // Hash di "mypassword123"
 
         if (protectedLink) {
+            console.log("Link 'Docs' trovato"); // Debug
             protectedLink.addEventListener("click", async function (event) {
                 event.preventDefault(); // Blocca la navigazione predefinita
                 console.log("Intercepted click"); // Debug
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         } else {
-            console.log("Errore: il link non è stato trovato!");
+            console.log("Errore: il link 'Docs' non è stato trovato!"); // Debug
         }
     }, 500); // Ritardo per garantire il caricamento
 });
