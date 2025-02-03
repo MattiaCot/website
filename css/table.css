@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 8px;
+    border-bottom: 0px solid #555;
+    text-align: left;
+}
+th {
+    font-weight: bold;
+}
+a {
+    color: lightblue;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+.folder::before {
+    content: "📁 ";
+}
+.file::before {
+    content: "📄 ";
+}
+.back-link {
+    display: block;
+    margin-bottom: 10px;
+}
