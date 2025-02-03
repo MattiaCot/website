@@ -32,10 +32,10 @@
     </table>
 
     <script>
-        const owner = "owner";  // Sostituisci con il tuo username GitHub 
-        const repo = "repo";      // Sostituisci con il nome della tua repository 
-        const branch = "main";   // Branch principale (es. "main" o "master")
-        let currentPath = "files"; // Percorso iniziale
+        const owner = "mattiacot"; 
+        const repo = "website";
+        const branch = "main";
+        let currentPath = "files";
 
         async function fetchLastModified(filePath) {
             const commitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits?path=${filePath}&sha=${branch}`;
