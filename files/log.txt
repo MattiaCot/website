@@ -1,0 +1,12 @@
+2025-02-02 18:45:15 - [31m❌ Scartato: https://www.lefrecce.it/Channels.Website.WEB/#/b2b-loyalty-invite/accept?invitationId=5
+2025-02-02 18:45:15 - [31m❌ Scartato: https://www.lefrecce.it/Channels.Website.WEB/#/b2b-loyalty-invite/accept?invitationId=6
+2025-02-02 18:45:15 - [31m❌ Scartato: https://www.lefrecce.it/Channels.Website.WEB/#/b2b-loyalty-invite/accept?invitationId=9
+2025-02-02 18:45:15 - [31m❌ Scartato: https://www.lefrecce.it/Channels.Website.WEB/#/b2b-loyalty-invite/accept?invitationId=10
+2025-02-02 18:45:15 - [31m❌ Scartato: https://www.lefrecce.it/Channels.Website.WEB/#/b2b-loyalty-invite/accept?invitationId=8
+2025-02-02 18:45:15 - [31m❌ Scartato: https://www.lefrecce.it/Channels.Website.WEB/#/b2b-loyalty-invite/accept?invitationId=4
+2025-02-02 18:45:15 - [31m❌ Scartato: https://www.lefrecce.it/Channels.Website.WEB/#/b2b-loyalty-invite/accept?invitationId=1
+2025-02-02 18:45:18 - [31m❌ Scartato: https://www.lefrecce.it/Channels.Website.WEB/#/b2b-loyalty-invite/accept?invitationId=7
+2025-02-02 18:45:18 - [31m❌ Scartato: https://www.lefrecce.it/Channels.Website.WEB/#/b2b-loyalty-invite/accept?invitationId=3
+2025-02-02 18:45:22 - [31m❌ Scartato: https://www.lefrecce.it/Channels.Website.WEB/#/b2b-loyalty-invite/accept?invitationId=2
+2025-02-02 18:45:22 - Error while receiving a control message (SocketClosed): received exception "read of closed file"
+2025-02-02 18:45:22 - [31m[ERRORE] Non è stato possibile rinnovare l'IP di Tor: Authentication failed: '/var/lib/tor/control_auth_cookie' doesn't exist
