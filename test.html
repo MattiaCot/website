@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esplora Cartella</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-    </style>
+    <title>files</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <!--CSS-->
+    <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
 
@@ -19,7 +16,7 @@
             <tr>
                 <th>Nome</th>
                 <th>Dimensione</th>
-                <th>Data di Ultima Modifica</th>
+                <th>Ultima Modifica</th>
             </tr>
         </thead>
         <tbody id="fileTable">
@@ -33,6 +30,13 @@
         const path = "files";          // Percorso della cartella da leggere
         const branch = "main";         // Branch principale (es. "main" o "master")
 
+        async function fetchLastModified(filePath) {
+            const commitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits?path=${filePath}&sha=${branch}`;
+            const commitsResponse = await fetch(commitsUrl);
+            const commits = await commitsResponse.json();
+            return commits.length > 0 ? new Date(commits[0].commit.author.date).toLocaleString() : "Data non disponibile";
+        }
+
         async function loadFiles() {
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
             const response = await fetch(apiUrl);
@@ -41,12 +45,12 @@
 
             tableBody.innerHTML = ""; // Pulisce la tabella
 
-            files.forEach(file => {
+            for (const file of files) {
                 const row = document.createElement("tr");
 
                 const nameCell = document.createElement("td");
                 const link = document.createElement("a");
-                link.href = file.download_url; // Link per il download
+                link.href = file.download_url || `https://github.com/${owner}/${repo}/tree/${branch}/${file.path}`;
                 link.textContent = file.name;
                 nameCell.appendChild(link);
 
@@ -54,13 +58,16 @@
                 sizeCell.textContent = file.size ? `${(file.size / 1024).toFixed(2)} KB` : "Cartella";
 
                 const dateCell = document.createElement("td");
-                dateCell.textContent = new Date(file.last_modified || file.commit?.commit?.author?.date).toLocaleString();
+                dateCell.textContent = "Caricamento...";
 
                 row.appendChild(nameCell);
                 row.appendChild(sizeCell);
                 row.appendChild(dateCell);
                 tableBody.appendChild(row);
-            });
+
+                // Recupera la data di modifica e aggiorna la cella
+                dateCell.textContent = await fetchLastModified(file.path);
+            }
         }
 
         loadFiles();

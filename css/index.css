@@ -36,3 +36,9 @@
     border: 2px solid rgb(0, 0, 0);
     padding: 30px;
   }
+
+  body { font-family: Arial, sans-serif; margin: 20px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  
+  th, td { padding: 8px; text-align: left; }
