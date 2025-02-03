@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esplora Cartella</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+    <h2>Contenuto della Cartella</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Dimensione</th>
+                <th>Data di Ultima Modifica</th>
+            </tr>
+        </thead>
+        <tbody id="fileTable">
+            <!-- I dati verranno inseriti qui con JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        const owner = "TUO_USERNAME";  // Sostituisci con il tuo username GitHub
+        const repo = "NOME_REPO";      // Sostituisci con il nome della tua repository
+        const path = "files";          // Percorso della cartella da leggere
+        const branch = "main";         // Branch principale (es. "main" o "master")
+
+        async function loadFiles() {
+            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+            const response = await fetch(apiUrl);
+            const files = await response.json();
+            const tableBody = document.getElementById("fileTable");
+
+            tableBody.innerHTML = ""; // Pulisce la tabella
+
+            files.forEach(file => {
+                const row = document.createElement("tr");
+
+                const nameCell = document.createElement("td");
+                const link = document.createElement("a");
+                link.href = file.download_url; // Link per il download
+                link.textContent = file.name;
+                nameCell.appendChild(link);
+
+                const sizeCell = document.createElement("td");
+                sizeCell.textContent = file.size ? `${(file.size / 1024).toFixed(2)} KB` : "Cartella";
+
+                const dateCell = document.createElement("td");
+                dateCell.textContent = new Date(file.last_modified || file.commit?.commit?.author?.date).toLocaleString();
+
+                row.appendChild(nameCell);
+                row.appendChild(sizeCell);
+                row.appendChild(dateCell);
+                tableBody.appendChild(row);
+            });
+        }
+
+        loadFiles();
+    </script>
+
+</body>
+</html>
