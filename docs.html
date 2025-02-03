@@ -29,13 +29,13 @@
         <tbody id="fileTable">
         </tbody>
     </table>
-
     <script>
-        window.onload = function() {
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("Caricamento script di autenticazione...");
             let script = document.createElement("script");
-            script.src = "scripts/script-obfuscated.js";
+            script.src = "scripts/auth.js";
             document.body.appendChild(script);
-        };
+        });
     </script>
 </body>
 </html>
