@@ -5,8 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>files</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    <!--CSS-->
     <link href="css/index.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            font-weight: bold;
+        }
+        a {
+            color: lightblue;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .folder::before {
+            content: "📁 ";
+        }
+        .file::before {
+            content: "📄 ";
+        }
+        .back-link {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="topnav">
@@ -15,24 +49,23 @@
         <a class="active" href="docs.html">Docs</a>
     </div>
     <br>
-    <h2 id="currentPath">Files/</h2>
-    <a class="back-link" id="backButton" style="display: none; cursor: pointer; color: blue;">⬅ Torna indietro</a>
+    <h2 id="currentPath">[cartella radice]</h2>
+    <a class="back-link" id="backButton" style="display: none; cursor: pointer; color: lightblue;">⬅ Torna indietro</a>
     
     <table>
         <thead>
             <tr>
                 <th>Nome</th>
                 <th>Dimensione</th>
-                <th>Ultima Modifica</th>
+                <th>Ultima modifica</th>
             </tr>
         </thead>
         <tbody id="fileTable">
-            <!-- I dati verranno inseriti qui con JavaScript -->
         </tbody>
     </table>
 
     <script>
-        const owner = "mattiacot"; 
+        const owner = "mattiacot";
         const repo = "website";
         const branch = "main";
         let currentPath = "files";
@@ -52,8 +85,8 @@
             const backButton = document.getElementById("backButton");
             const currentPathDisplay = document.getElementById("currentPath");
 
-            tableBody.innerHTML = ""; // Pulisce la tabella
-            currentPathDisplay.innerHTML = `📂 <strong>${path}</strong>`; // Mostra il percorso corrente
+            tableBody.innerHTML = "";
+            currentPathDisplay.innerHTML = `[cartella radice] ${path}`;
             currentPath = path;
 
             if (path !== "files") {
@@ -65,24 +98,23 @@
 
             for (const file of files) {
                 const row = document.createElement("tr");
-
                 const nameCell = document.createElement("td");
                 const link = document.createElement("a");
                 link.textContent = file.name;
 
                 if (file.type === "dir") {
                     link.href = "#";
-                    link.style.color = "blue";
+                    link.classList.add("folder");
                     link.onclick = () => loadFiles(file.path);
                 } else {
                     link.href = file.download_url;
                     link.target = "_blank";
+                    link.classList.add("file");
                 }
-
                 nameCell.appendChild(link);
-                
+
                 const sizeCell = document.createElement("td");
-                sizeCell.textContent = file.size ? `${(file.size / 1024).toFixed(2)} KB` : "Cartella";
+                sizeCell.textContent = file.size ? `${(file.size / 1024).toFixed(1)} kB` : "Cartella";
 
                 const dateCell = document.createElement("td");
                 dateCell.textContent = "Caricamento...";
