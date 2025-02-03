@@ -15,7 +15,9 @@
         <a class="active" href="docs.html">Docs</a>
     </div>
     <br>
-    <h2>Files/</h2>
+    <h2 id="currentPath">Files/</h2>
+    <a class="back-link" id="backButton" style="display: none; cursor: pointer; color: blue;">⬅ Torna indietro</a>
+    
     <table>
         <thead>
             <tr>
@@ -30,10 +32,10 @@
     </table>
 
     <script>
-        const owner = "mattiacot";  // Sostituisci con il tuo username GitHub
-        const repo = "website";      // Sostituisci con il nome della tua repository
-        const path = "files";          // Percorso della cartella da leggere
-        const branch = "main";         // Branch principale (es. "main" o "master")
+        const owner = "owner";  // Sostituisci con il tuo username GitHub 
+        const repo = "repo";      // Sostituisci con il nome della tua repository 
+        const branch = "main";   // Branch principale (es. "main" o "master")
+        let currentPath = "files"; // Percorso iniziale
 
         async function fetchLastModified(filePath) {
             const commitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits?path=${filePath}&sha=${branch}`;
@@ -42,23 +44,43 @@
             return commits.length > 0 ? new Date(commits[0].commit.author.date).toLocaleString() : "Data non disponibile";
         }
 
-        async function loadFiles() {
+        async function loadFiles(path) {
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
             const response = await fetch(apiUrl);
             const files = await response.json();
             const tableBody = document.getElementById("fileTable");
+            const backButton = document.getElementById("backButton");
+            const currentPathDisplay = document.getElementById("currentPath");
 
             tableBody.innerHTML = ""; // Pulisce la tabella
+            currentPathDisplay.innerHTML = `📂 <strong>${path}</strong>`; // Mostra il percorso corrente
+            currentPath = path;
+
+            if (path !== "files") {
+                backButton.style.display = "block";
+                backButton.onclick = () => goBack();
+            } else {
+                backButton.style.display = "none";
+            }
 
             for (const file of files) {
                 const row = document.createElement("tr");
 
                 const nameCell = document.createElement("td");
                 const link = document.createElement("a");
-                link.href = file.download_url || `https://github.com/${owner}/${repo}/tree/${branch}/${file.path}`;
                 link.textContent = file.name;
-                nameCell.appendChild(link);
 
+                if (file.type === "dir") {
+                    link.href = "#";
+                    link.style.color = "blue";
+                    link.onclick = () => loadFiles(file.path);
+                } else {
+                    link.href = file.download_url;
+                    link.target = "_blank";
+                }
+
+                nameCell.appendChild(link);
+                
                 const sizeCell = document.createElement("td");
                 sizeCell.textContent = file.size ? `${(file.size / 1024).toFixed(2)} KB` : "Cartella";
 
@@ -70,13 +92,17 @@
                 row.appendChild(dateCell);
                 tableBody.appendChild(row);
 
-                // Recupera la data di modifica e aggiorna la cella
                 dateCell.textContent = await fetchLastModified(file.path);
             }
         }
 
-        loadFiles();
-    </script>
+        function goBack() {
+            let parts = currentPath.split("/");
+            parts.pop();
+            loadFiles(parts.join("/") || "files");
+        }
 
+        loadFiles(currentPath);
+    </script>
 </body>
 </html>
