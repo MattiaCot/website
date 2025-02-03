@@ -17,14 +17,13 @@
     <h1>Page 2</h1>
     <p>Paragrafo</p>
     <p>Ciao Emanuele</p>
-
-    <script>
-        window.onload = function() {
-            let script = document.createElement("script");
-            script.src = "scripts/auth-obfuscated.js";
-            document.body.appendChild(script);
-        };
-    </script>
+	<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let script = document.createElement("script");
+        script.src = "scripts/auth-obfuscated.js";
+        document.body.appendChild(script);
+    });
+</script>
 
   </body>
 </html>

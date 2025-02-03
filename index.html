@@ -19,13 +19,12 @@
         -Johann Wolfgang von Goethe.
     </p>
     <img src="images/img1.jpg" alt="image" title="prova" width="auto" height="209">
-    
     <script>
-        window.onload = function() {
-            let script = document.createElement("script");
-            script.src = "scripts/auth-obfuscated.js";
-            document.body.appendChild(script);
-        };
-    </script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let script = document.createElement("script");
+        script.src = "scripts/auth-obfuscated.js";
+        document.body.appendChild(script);
+    });
+</script>
 </body>
 </html>
