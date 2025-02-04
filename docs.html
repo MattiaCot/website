@@ -6,7 +6,42 @@
     <title>files</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link href="css/index.css" rel="stylesheet">
-    <link href="css/table.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #555;
+            text-align: left;
+        }
+        th {
+            font-weight: bold;
+        }
+        a {
+            color: lightblue;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .folder::before {
+            content: "📁 ";
+        }
+        .file::before {
+            content: "📄 ";
+        }
+        .back-link {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="topnav">
@@ -29,5 +64,13 @@
         <tbody id="fileTable">
         </tbody>
     </table>
+
+    <script>
+        window.onload = function() {
+            let script = document.createElement("script");
+            script.src = "scripts/script-obfuscated.js";
+            document.body.appendChild(script);
+        };
+    </script>
 </body>
 </html>
