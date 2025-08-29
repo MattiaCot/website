@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <title>My web page</title>
-    <link rel="icon" type="image/x-icon" href="https://mattiacot.github.io/website/images/favicon.ico">
-    <link href="css/index.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Il mio sito</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="text-align:center;">
-    <div class="topnav">
-        <a href="index.html">Home</a>
-        <a href="page2.html">Pagina 2</a>
-        <a class="active" href="docs.html">Docs</a>
-    </div>
-    <h1 style="font-family:verdana;">Benvenuti nel mio mondo</h1>
-    <p>“I Monti sono maestri muti e fanno discepoli silenziosi.”<br>
-        -Johann Wolfgang von Goethe.
-    </p>
-    <img src="images/img1.jpg" alt="image" title="prova" width="auto" height="209">
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#" onclick="return accessDocs()">Docs</a>
+    <a href="page2.html">Page 2</a>
+    <a href="old_page3.html">Old Page 3</a>
+    <a href="snake.html">Snake</a>
+  </nav>
+
+  <h1>Benvenuto nel mio sito</h1>
+  <p>Questa è la homepage.</p>
+
+  <script>
+  function accessDocs() {
+    const pwd = prompt("Inserisci la password per accedere ai Docs:");
+    if (pwd === "Mattia") {
+      sessionStorage.setItem("docs_access", "Mattia"); // Salva accesso
+      window.location.href = "docs.html";
+    } else if (pwd !== null) {
+      alert("Password errata!");
+    }
+    return false;
+  }
+  </script>
 </body>
 </html>

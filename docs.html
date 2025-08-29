@@ -1,41 +1,22 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>files</title>
-    <link rel="icon" type="image/x-icon" href="https://mattiacot.github.io/website/images/favicon.ico">
-    <link href="css/index.css" rel="stylesheet">
-    <link href="css/table.css" rel="Stylesheet">
+  <meta charset="UTF-8">
+  <title>Documentazione</title>
 </head>
 <body>
-    <div class="topnav">
-        <a href="index.html">Home</a>
-        <a href="page2.html">Pagina 2</a>
-        <a class="active" href="docs.html">Docs</a>
-    </div>
-    <br>
-    <h2 id="currentPath">[cartella radice]</h2>
-    <a class="back-link" id="backButton" style="display: none; cursor: pointer; color: lightblue;">⬅ Torna indietro</a>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Dimensione</th>
-                <th>Ultima modifica</th>
-            </tr>
-        </thead>
-        <tbody id="fileTable">
-        </tbody>
-    </table>
+  <h1>Documentazione segreta</h1>
+  <p>Questa è la sezione privata dei Docs.</p>
 
-    <script>
-        window.onload = function() {
-            let script = document.createElement("script");
-            script.src = "scripts/script-obfuscated.js";
-            document.body.appendChild(script);
-        };
-    </script>
+  <script>
+  // Controllo accesso diretto
+  (function() {
+    const pwd = sessionStorage.getItem("docs_access");
+    if (pwd !== "Mattia") {
+      alert("Accesso non autorizzato!");
+      window.location.href = "index.html";
+    }
+  })();
+  </script>
 </body>
 </html>
