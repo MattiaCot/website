@@ -64,6 +64,8 @@
   </style>
 </head>
 <body style="text-align:center;">
+  <!-- Overlay di blocco -->
+  <div id="blocker" style="position:fixed;inset:0;background:#111;z-index:9999;color:white;display:flex;align-items:center;justify-content:center;font-size:2em;">Controllo accesso...</div>
   <div id="navbar-placeholder"></div>
 
   <h1>Documentazione segreta</h1>
@@ -85,12 +87,16 @@
   </table>
 
   <script>
-    // Controllo accesso diretto
+    // Controllo accesso diretto: eseguito subito!
     (function() {
       const pwd = sessionStorage.getItem("docs_access");
       if (pwd !== "Mattia") {
-        alert("Accesso non autorizzato!");
-        window.location.href = "index.html";
+        window.location.replace("index.html");
+      } else {
+        // Sblocca la pagina solo se autorizzato
+        window.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('blocker').style.display = 'none';
+        });
       }
     })();
 
