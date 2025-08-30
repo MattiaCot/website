@@ -28,5 +28,29 @@
       });
   </script>
   <script src="scripts/script-obfuscated.js"></script>
+
+  <br>
+  <h2 id="currentPath">[cartella radice]</h2>
+  <a class="back-link" id="backButton" style="display: none; cursor: pointer; color: lightblue;">⬅ Torna indietro</a>
+    
+  <table>
+      <thead>
+          <tr>
+              <th>Nome</th>
+              <th>Dimensione</th>
+              <th>Ultima modifica</th>
+          </tr>
+      </thead>
+      <tbody id="fileTable">
+      </tbody>
+  </table>
+
+  <script>
+      window.onload = function() {
+          let script = document.createElement("script");
+          script.src = "scripts/script-obfuscated.js";
+          document.body.appendChild(script);
+      };
+  </script>
 </body>
 </html>
