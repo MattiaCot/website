@@ -21,12 +21,14 @@
   </style>
 </head>
 <body>
-
-	<div class="topnav">
-      <a href="index.html">Home</a>
-      <a href="page2.html">Pagina 2</a>
-      <a class="active" href="docs.html">Docs</a>
-    </div>
+<div id="navbar-placeholder"></div>
+<script>
+  fetch('navbar.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('navbar-placeholder').innerHTML = html;
+    });
+</script>
 
   <canvas id="game" width="400" height="400"></canvas>
   <script>
