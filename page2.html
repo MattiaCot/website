@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="it">
-<!--Titolo della pagina-->
-  <head>
+<head>
   <title>My web page - page 2</title>
   <link rel="icon" type="image/x-icon" href="https://mattiacot.github.io/website/images/favicon.ico">
-  <!--CSS-->
   <link href="css/index.css" rel="stylesheet">
-  </head>
-<!--Vero codice-->
-  <body  style="text-align:center;">
-    <div class="topnav">
-      <a href="index.html">Home</a>
-      <a href="page2.html">Pagina 2</a>
-      <a class="active" href="docs.html">Docs</a>
-    </div>
-    <h1>Page 2</h1>
-    <p>Paragrafo</p>
-    <p>Ciao Emanuele</p>
+</head>
+<body style="text-align:center;">
+  <div id="navbar-placeholder"></div>
+
+  <h1>Page 2</h1>
+  <p>Paragrafo</p>
+  <p>Ciao Emanuele</p>
+
+  <script>
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-placeholder').innerHTML = html;
+      });
   </script>
-  </body>
+  <script src="script-obfuscated.js"></script>
+</body>
 </html>

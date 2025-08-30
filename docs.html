@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <title>Documentazione</title>
 </head>
-<body>
+<body style="text-align:center;">
+  <div id="navbar-placeholder"></div>
+
   <h1>Documentazione segreta</h1>
   <p>Questa è la sezione privata dei Docs.</p>
 
@@ -18,5 +20,13 @@
     }
   })();
   </script>
+  <script>
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-placeholder').innerHTML = html;
+      });
+  </script>
+  <script src="script-obfuscated.js"></script>
 </body>
 </html>
