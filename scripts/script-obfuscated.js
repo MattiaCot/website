@@ -21,4 +21,4 @@ function accessDocs() {
       alert("Password errata!");
     }
   return false;
-  }
+}

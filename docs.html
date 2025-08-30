@@ -11,22 +11,20 @@
   <p>Questa è la sezione privata dei Docs.</p>
 
   <script>
-  // Controllo accesso diretto
-  (function() {
-    const pwd = sessionStorage.getItem("docs_access");
-    if (pwd !== "Mattia") {
-      alert("Accesso non autorizzato!");
-      window.location.href = "index.html";
-    }
-  })();
-  </script>
-  <script>
+    // Controllo accesso diretto
+    (function() {
+      const pwd = sessionStorage.getItem("docs_access");
+      if (pwd !== "Mattia") {
+        alert("Accesso non autorizzato!");
+        window.location.href = "index.html";
+      }
+    })();
     fetch('navbar.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('navbar-placeholder').innerHTML = html;
       });
   </script>
-  <script src="script-obfuscated.js"></script>
+  <script src="scripts/script-obfuscated.js"></script>
 </body>
 </html>
