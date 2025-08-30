@@ -46,7 +46,10 @@
       color: white;
       font-size: 2em;
       display: none;
-      pointer-events: auto;
+      pointer-events: none; /* Blocca solo il menu */
+    }
+    #game-over-menu > * {
+      pointer-events: auto; /* Permetti click su testo e bottone */
     }
     #game-over-menu button {
       margin-top: 20px;
