@@ -5,6 +5,63 @@
   <title>Documentazione</title>
   <link rel="icon" type="image/x-icon" href="https://mattiacot.github.io/website/images/favicon.ico">
   <link href="css/index.css" rel="stylesheet">
+  <style>
+    /* Migliora la tabella dei file */
+    table {
+      width: 80%;
+      margin: 30px auto 0 auto;
+      border-collapse: collapse;
+      background: #222;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 14px 18px;
+      text-align: left;
+    }
+    th {
+      background: #333;
+      color: #ffb347;
+      font-size: 1.1em;
+      border-bottom: 2px solid #04aa6d;
+    }
+    tr:nth-child(even) {
+      background: #282828;
+    }
+    tr:hover {
+      background: #444;
+    }
+    a.download-link {
+      color: #04aa6d;
+      text-decoration: underline;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    a.download-link:hover {
+      color: #ff6200;
+    }
+    #currentPath {
+      margin-top: 30px;
+      color: #ffb347;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+    }
+    .back-link {
+      display: inline-block;
+      margin: 10px 0 20px 0;
+      color: #04aa6d;
+      cursor: pointer;
+      font-size: 1.1em;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover {
+      color: #ff6200;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body style="text-align:center;">
   <div id="navbar-placeholder"></div>
@@ -12,26 +69,8 @@
   <h1>Documentazione segreta</h1>
   <p>Questa è la sezione privata dei Docs.</p>
 
-  <script>
-    // Controllo accesso diretto
-    (function() {
-      const pwd = sessionStorage.getItem("docs_access");
-      if (pwd !== "Mattia") {
-        alert("Accesso non autorizzato!");
-        window.location.href = "index.html";
-      }
-    })();
-    fetch('navbar.html')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById('navbar-placeholder').innerHTML = html;
-      });
-  </script>
-  <script src="scripts/script-nav.js"></script>
-
-  <br>
   <h2 id="currentPath">[cartella radice]</h2>
-  <a class="back-link" id="backButton" style="display: none; cursor: pointer; color: lightblue;">⬅ Torna indietro</a>
+  <a class="back-link" id="backButton" style="display: none;">⬅ Torna indietro</a>
     
   <table>
       <thead>
@@ -46,11 +85,28 @@
   </table>
 
   <script>
-      window.onload = function() {
-          let script = document.createElement("script");
-          script.src = "scripts/script-obfuscated.js";
-          document.body.appendChild(script);
-      };
+    // Controllo accesso diretto
+    (function() {
+      const pwd = sessionStorage.getItem("docs_access");
+      if (pwd !== "Mattia") {
+        alert("Accesso non autorizzato!");
+        window.location.href = "index.html";
+      }
+    })();
+
+    // Carica navbar
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-placeholder').innerHTML = html;
+      });
+
+    // Carica script solo dopo il caricamento della pagina
+    window.onload = function() {
+      let script = document.createElement("script");
+      script.src = "scripts/script-obfuscated.js";
+      document.body.appendChild(script);
+    };
   </script>
 </body>
 </html>
