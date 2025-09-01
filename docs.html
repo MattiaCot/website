@@ -6,7 +6,6 @@
   <link rel="icon" type="image/x-icon" href="https://mattiacot.github.io/website/images/favicon.ico">
   <link href="css/index.css" rel="stylesheet">
   <style>
-    /* Migliora la tabella dei file */
     table {
       width: 80%;
       margin: 30px auto 0 auto;
@@ -68,19 +67,8 @@
   <div id="blocker" style="position:fixed;inset:0;background:#111;z-index:9999;color:white;display:flex;align-items:center;justify-content:center;font-size:2em;">Controllo accesso...</div>
   <div id="navbar-placeholder"></div>
 
-  <h1 style="display:inline-block;">Documentazione segreta</h1>
-  <!-- Bottone upload in alto a destra -->
-  <div style="position: absolute; right: 10%; top: 90px;">
-    <form id="uploadForm" enctype="multipart/form-data" method="post">
-      <label for="fileInput" style="background:#04aa6d;color:white;padding:8px 18px;border-radius:5px;cursor:pointer;font-weight:bold;">
-        Carica file
-        <input type="file" id="fileInput" name="file" style="display:none;">
-      </label>
-      <button type="submit" style="display:none;">Upload</button>
-    </form>
-  </div>
+  <h1 style="display:inline-block;">Documentazione</h1>
 
-  <p>Questa è la sezione privata dei Docs.</p>
   <h2 id="currentPath">[cartella radice]</h2>
   <a class="back-link" id="backButton" style="display: none;">⬅ Torna indietro</a>
     
@@ -123,32 +111,6 @@
       script.src = "scripts/script-obfuscated.js";
       document.body.appendChild(script);
     };
-
-    // Gestione upload (solo lato client, richiede backend per funzionare davvero)
-    document.getElementById('uploadForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const fileInput = document.getElementById('fileInput');
-      if (!fileInput.files.length) return alert('Seleziona un file da caricare!');
-      const file = fileInput.files[0];
-
-      // Esempio di upload con fetch (richiede endpoint /upload lato server)
-      const formData = new FormData();
-      formData.append('file', file);
-
-      fetch('/upload', {
-        method: 'POST',
-        body: formData
-      })
-      .then(res => {
-        if (res.ok) {
-          alert('File caricato con successo!');
-          location.reload();
-        } else {
-          alert('Errore nel caricamento del file.');
-        }
-      })
-      .catch(() => alert('Errore di rete durante l\'upload.'));
-    });
   </script>
 </body>
 </html>
