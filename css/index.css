@@ -33,6 +33,44 @@ body {
   text-align: center;
 }
 
+body.page-shell {
+  margin: 0;
+  text-align: center;
+}
+
+body.docs-page {
+  text-align: center;
+}
+
+body.snake-page {
+  margin: 0;
+  text-align: center;
+}
+
+.page-title {
+  font-family: verdana;
+}
+
+.docs-heading {
+  display: inline-block;
+}
+
+.docs-back-link {
+  display: none;
+}
+
+.blocker-overlay {
+  position: fixed;
+  inset: 0;
+  background: #111;
+  z-index: 9999;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+}
+
 p {
   border: 2px solid var(--main-text-color);
   padding: 30px;
