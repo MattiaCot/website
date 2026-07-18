@@ -38,34 +38,65 @@ p {
 
 /* Add a black background color to the top navigation */
 nav {
-  background-color: #333;
+  background-color: var(--nav-bg-color);
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  min-height: 56px;
+  border-radius: 6px;
+}
+
+nav .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
   
 /* Style the links inside the navigation bar */
 nav a {
   float: left;
-  color: #f2f2f2;
+  color: var(--nav-link-color);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+  border-radius: 4px;
 }
   
 /* Change the color of links on hover */
 nav a:hover {
-  background-color: #ddd;
-  color: black;
+  background-color: var(--nav-link-hover-bg-color);
+  color: var(--nav-link-hover-color);
 }
   
 /* Add a color to the active/current link */
 nav a.active {
-  background-color: #04aa6d;
-  color: white;
+  background-color: var(--nav-active-bg-color);
+  color: var(--nav-active-color);
 }
 
 /* Change the color of links on hover active */
 nav a.active:hover {
-  background-color: #ff6200;
-  color: black;
+  background-color: var(--nav-active-hover-bg-color);
+  color: var(--nav-active-hover-color);
+}
+
+.theme-toggle {
+  margin-left: auto;
+  background-color: var(--nav-active-bg-color);
+  color: var(--nav-active-color);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--nav-active-hover-bg-color);
+  color: var(--nav-active-hover-color);
+  transform: translateY(-1px);
 }

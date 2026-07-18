@@ -8,13 +8,15 @@
       });
   </script>
   <script src="script-nav.js"></script>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="#" onclick="return accessDocs()">Docs</a>
-    <a href="page2.html">Page 2</a>
-    <a href="snake.html">Snake</a>
+  <nav class="navbar">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#" onclick="return accessDocs()">Docs</a>
+      <a href="page2.html">Page 2</a>
+      <a href="snake.html">Snake</a>
+    </div>
 
-    <button id="toggle" type="button" align="right">Dark Mode</button>
+    <button id="toggle" class="theme-toggle" type="button">Dark Mode</button>
     <script>
       const toggleButton = document.getElementById('toggle');
     if(localStorage.getItem('darkMode') === 'enabled') {
