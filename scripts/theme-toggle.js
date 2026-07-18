@@ -1,32 +1,56 @@
 (function () {
-  function applyThemeFromStorage() {
-    const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-    document.body.classList.toggle('dark-mode', isDarkMode);
+  const STORAGE_KEY = 'darkMode';
 
-    const toggleButton = document.getElementById('toggle');
-    if (toggleButton) {
-      toggleButton.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
-    }
+  function getIsDarkMode() {
+    return localStorage.getItem(STORAGE_KEY) === 'enabled';
+  }
+
+  function applyTheme(isDarkMode) {
+    document.body.classList.toggle('dark-mode', isDarkMode);
+    document.documentElement.classList.toggle('dark-mode', isDarkMode);
+
+    document.querySelectorAll('#toggle, .theme-toggle').forEach((button) => {
+      if (button) {
+        button.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+      }
+    });
+  }
+
+  function applyThemeFromStorage() {
+    applyTheme(getIsDarkMode());
   }
 
   function initializeThemeToggle() {
-    const toggleButton = document.getElementById('toggle');
-    if (!toggleButton || toggleButton.dataset.initialized === 'true') {
+    const toggleButtons = Array.from(document.querySelectorAll('#toggle, .theme-toggle'));
+    if (!toggleButtons.length) {
       return;
     }
 
-    toggleButton.dataset.initialized = 'true';
-    applyThemeFromStorage();
+    toggleButtons.forEach((button) => {
+      if (button.dataset.initialized === 'true') {
+        return;
+      }
 
-    toggleButton.addEventListener('click', () => {
-      const isDarkMode = document.body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
-      toggleButton.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+      button.dataset.initialized = 'true';
+      button.addEventListener('click', () => {
+        const isDarkMode = !document.body.classList.contains('dark-mode');
+        localStorage.setItem(STORAGE_KEY, isDarkMode ? 'enabled' : 'disabled');
+        applyTheme(isDarkMode);
+      });
     });
+
+    applyThemeFromStorage();
   }
 
   window.initializeThemeToggle = initializeThemeToggle;
   window.applyThemeFromStorage = applyThemeFromStorage;
 
+  window.addEventListener('storage', (event) => {
+    if (event.key === STORAGE_KEY) {
+      applyTheme(getIsDarkMode());
+    }
+  });
+
   document.addEventListener('DOMContentLoaded', initializeThemeToggle);
+  window.addEventListener('load', initializeThemeToggle);
 })();
