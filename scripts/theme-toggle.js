@@ -8,6 +8,7 @@
   function applyTheme(isDarkMode) {
     document.body.classList.toggle('dark-mode', isDarkMode);
     document.documentElement.classList.toggle('dark-mode', isDarkMode);
+    document.documentElement.style.colorScheme = isDarkMode ? 'dark' : 'light';
 
     document.querySelectorAll('#toggle, .theme-toggle').forEach((button) => {
       if (button) {

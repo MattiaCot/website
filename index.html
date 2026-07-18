@@ -2,6 +2,13 @@
 <html lang="it">
 <head>
     <title>My web page</title>
+    <script>
+      (function () {
+        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+        document.documentElement.classList.toggle('dark-mode', isDarkMode);
+        document.documentElement.style.colorScheme = isDarkMode ? 'dark' : 'light';
+      })();
+    </script>
     <link rel="icon" type="image/x-icon" href="https://mattiacot.github.io/website/images/favicon.ico">
     <link href="css/index.css" rel="stylesheet">
 </head>

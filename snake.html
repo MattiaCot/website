@@ -3,41 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <title>Snake Game</title>
+  <script>
+    (function () {
+      const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+      document.documentElement.classList.toggle('dark-mode', isDarkMode);
+      document.documentElement.style.colorScheme = isDarkMode ? 'dark' : 'light';
+    })();
+  </script>
   <link rel="icon" type="image/x-icon" href="https://mattiacot.github.io/website/images/favicon.ico">
   <link href="css/index.css" rel="stylesheet">
   <style>
     body {
-      background: #111;
-      color: white;
+      background-color: var(--main-bg-color);
+      color: var(--main-text-color);
       margin: 0;
       font-family: Arial, sans-serif;
       text-align: center;
     }
     #game-container {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 80vh;
+      padding: 20px 0;
     }
     #score-board {
       font-size: 1.5em;
       margin-bottom: 10px;
-      color: #ff0;
+      color: var(--nav-active-bg-color);
       font-weight: bold;
       letter-spacing: 2px;
-      text-shadow: 1px 1px 2px #000;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
     canvas {
       background: #222;
-      border: 2px solid #0f0;
+      border: 2px solid var(--nav-active-bg-color);
       display: block;
       margin: 0 auto;
     }
     #game-over-menu {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.85);
+      inset: 0;
+      background: rgba(0,0,0,0.8);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -46,24 +55,26 @@
       color: white;
       font-size: 2em;
       display: none;
-      pointer-events: none; /* Blocca solo il menu */
+      pointer-events: none;
+      border-radius: 8px;
     }
     #game-over-menu > * {
-      pointer-events: auto; /* Permetti click su testo e bottone */
+      pointer-events: auto;
     }
     #game-over-menu button {
       margin-top: 20px;
       padding: 10px 30px;
       font-size: 1em;
-      background: #04aa6d;
-      color: white;
+      background: var(--nav-active-bg-color);
+      color: var(--nav-active-color);
       border: none;
       border-radius: 5px;
       cursor: pointer;
       transition: background 0.2s;
     }
     #game-over-menu button:hover {
-      background: #ff6200;
+      background: var(--nav-active-hover-bg-color);
+      color: var(--nav-active-hover-color);
     }
   </style>
 </head>
@@ -73,8 +84,8 @@
     <div id="score-board">Punteggio: 0</div>
     <canvas id="game" width="400" height="400"></canvas>
     <div id="game-over-menu">
-      <div id="game-over-text"></div>
-      <button onclick="restartGame()">Ricomincia</button>
+      <div id="game-over-text">Premi Start</div>
+      <button id="overlay-button" onclick="startGame()">Start</button>
     </div>
   </div>
   <script>
@@ -96,6 +107,7 @@
     let count = 0;
     let snake, dx, dy, apple, score, gameOver;
     let animationId;
+    let gameStarted = false;
 
     function updateScore() {
       document.getElementById('score-board').textContent = `Punteggio: ${score}`;
@@ -108,9 +120,11 @@
       apple = {x: 320, y: 320};
       score = 0;
       gameOver = false;
+      count = 0;
       document.getElementById('game-over-menu').style.display = 'none';
       updateScore();
       if (animationId) cancelAnimationFrame(animationId);
+      if (!gameStarted) return;
       animationId = requestAnimationFrame(gameLoop);
     }
 
@@ -158,24 +172,27 @@
 
     function showGameOver() {
       gameOver = true;
+      gameStarted = false;
       cancelAnimationFrame(animationId);
       document.getElementById('game-over-text').textContent = `Game Over! Punteggio: ${score}`;
+      document.getElementById('overlay-button').textContent = 'Ricomincia';
       document.getElementById('game-over-menu').style.display = 'flex';
     }
 
-    function restartGame() {
+    function startGame() {
+      gameStarted = true;
       initGame();
     }
 
     document.addEventListener("keydown", e => {
-      if (gameOver) return;
+      if (!gameStarted || gameOver) return;
       if (e.key === "ArrowLeft" && dx === 0) {dx = -grid; dy = 0;}
       else if (e.key === "ArrowUp" && dy === 0) {dy = -grid; dx = 0;}
       else if (e.key === "ArrowRight" && dx === 0) {dx = grid; dy = 0;}
       else if (e.key === "ArrowDown" && dy === 0) {dy = grid; dx = 0;}
     });
 
-    // Start the game
+    // Start only when the player presses the button
     initGame();
   </script>
 </body>
