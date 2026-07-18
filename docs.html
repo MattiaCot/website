@@ -103,6 +103,9 @@
       .then(res => res.text())
       .then(html => {
         document.getElementById('navbar-placeholder').innerHTML = html;
+        if (window.initializeThemeToggle) {
+          window.initializeThemeToggle();
+        }
       });
 
     // Carica script solo dopo il caricamento della pagina
@@ -112,5 +115,6 @@
       document.body.appendChild(script);
     };
   </script>
+  <script src="scripts/theme-toggle.js"></script>
 </body>
 </html>

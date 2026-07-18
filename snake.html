@@ -82,9 +82,13 @@
       .then(res => res.text())
       .then(html => {
         document.getElementById('navbar-placeholder').innerHTML = html;
+        if (window.initializeThemeToggle) {
+          window.initializeThemeToggle();
+        }
       });
   </script>
   <script src="scripts/script-nav.js"></script>
+  <script src="scripts/theme-toggle.js"></script>
   <script>
     const canvas = document.getElementById("game");
     const ctx = canvas.getContext("2d");
