@@ -1,18 +1,4 @@
-const toggleButton = document.getElementById('toggle');
-    if(localStorage.getItem('darkMode') === 'enabled') {
-      document.body.classList.add('dark-mode');
-    }
-    toggleButton.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      if(document.body.classList.contains('dark-mode')) {
-        localStorage.setItem('darkMode', 'enabled');
-      } else {
-        localStorage.setItem('darkMode', 'disabled');
-      }
-    });
-
-
-/*(function () {
+(function () {
   const STORAGE_KEY = 'darkMode';
 
   function getIsDarkMode() {
@@ -27,12 +13,9 @@ const toggleButton = document.getElementById('toggle');
     document.querySelectorAll('#toggle, .theme-toggle').forEach((button) => {
       if (button) {
         button.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+        button.setAttribute('aria-pressed', String(isDarkMode));
       }
     });
-  }
-
-  function applyThemeFromStorage() {
-    applyTheme(getIsDarkMode());
   }
 
   function initializeThemeToggle() {
@@ -48,17 +31,17 @@ const toggleButton = document.getElementById('toggle');
 
       button.dataset.initialized = 'true';
       button.addEventListener('click', () => {
-        const isDarkMode = !document.body.classList.contains('dark-mode');
+        const isDarkMode = !document.documentElement.classList.contains('dark-mode');
         localStorage.setItem(STORAGE_KEY, isDarkMode ? 'enabled' : 'disabled');
         applyTheme(isDarkMode);
       });
     });
 
-    applyThemeFromStorage();
+    applyTheme(getIsDarkMode());
   }
 
   window.initializeThemeToggle = initializeThemeToggle;
-  window.applyThemeFromStorage = applyThemeFromStorage;
+  window.applyThemeFromStorage = () => applyTheme(getIsDarkMode());
 
   window.addEventListener('storage', (event) => {
     if (event.key === STORAGE_KEY) {
@@ -66,7 +49,9 @@ const toggleButton = document.getElementById('toggle');
     }
   });
 
-  document.addEventListener('DOMContentLoaded', initializeThemeToggle);
-  window.addEventListener('load', initializeThemeToggle);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeThemeToggle);
+  } else {
+    initializeThemeToggle();
+  }
 })();
-*/
