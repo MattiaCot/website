@@ -54,7 +54,6 @@
       z-index: 1000;
       color: white;
       font-size: 2em;
-      display: none;
       pointer-events: none;
       border-radius: 8px;
     }
@@ -113,6 +112,26 @@
       document.getElementById('score-board').textContent = `Punteggio: ${score}`;
     }
 
+    function showOverlay(message, buttonText) {
+      document.getElementById('game-over-text').textContent = message;
+      document.getElementById('overlay-button').textContent = buttonText;
+      document.getElementById('game-over-menu').style.display = 'flex';
+    }
+
+    function hideOverlay() {
+      document.getElementById('game-over-menu').style.display = 'none';
+    }
+
+    function drawBoard() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = 'red';
+      ctx.fillRect(apple.x, apple.y, grid - 2, grid - 2);
+
+      ctx.fillStyle = 'lime';
+      snake.forEach(cell => ctx.fillRect(cell.x, cell.y, grid - 2, grid - 2));
+    }
+
     function initGame() {
       snake = [{x:160, y:160}];
       dx = grid;
@@ -121,10 +140,11 @@
       score = 0;
       gameOver = false;
       count = 0;
-      document.getElementById('game-over-menu').style.display = 'none';
+      hideOverlay();
       updateScore();
       if (animationId) cancelAnimationFrame(animationId);
       if (!gameStarted) return;
+      drawBoard();
       animationId = requestAnimationFrame(gameLoop);
     }
 
@@ -152,13 +172,7 @@
         snake.pop();
       }
 
-      // Draw apple
-      ctx.fillStyle = "red";
-      ctx.fillRect(apple.x, apple.y, grid-2, grid-2);
-
-      // Draw snake
-      ctx.fillStyle = "lime";
-      snake.forEach(cell => ctx.fillRect(cell.x, cell.y, grid-2, grid-2));
+      drawBoard();
 
       // Check collision
       if (
@@ -174,9 +188,7 @@
       gameOver = true;
       gameStarted = false;
       cancelAnimationFrame(animationId);
-      document.getElementById('game-over-text').textContent = `Game Over! Punteggio: ${score}`;
-      document.getElementById('overlay-button').textContent = 'Ricomincia';
-      document.getElementById('game-over-menu').style.display = 'flex';
+      showOverlay(`Game Over! Punteggio: ${score}`, 'Ricomincia');
     }
 
     function startGame() {
@@ -192,8 +204,7 @@
       else if (e.key === "ArrowDown" && dy === 0) {dy = grid; dx = 0;}
     });
 
-    // Start only when the player presses the button
-    initGame();
+    showOverlay('Premi Start', 'Start');
   </script>
 </body>
 </html>
